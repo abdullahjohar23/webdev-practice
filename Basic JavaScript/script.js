@@ -62,3 +62,45 @@ function greet2 (firstName, lastName) {
 }
 
 greet2('Abdullah', 'Johar');
+
+// Logical Operators (&&, ||, !)
+
+let temp = 23;
+
+if (temp > 0 && temp <= 30) {
+    console.log(`${temp} is a good temperature`);
+} else if (temp == 0) {
+    console.log(`${temp} is about to freez`);
+} else {
+    console.log(`${temp} is a bad temperature`);
+}
+
+let standard = 12;
+if (standard == 11 || standard == 12) {
+    console.log('You are in college');
+} else {
+    console.log('You are not in college');
+}
+
+let verrified = false;
+
+if (!verrified) {
+    console.log('you are not allowed here');
+} else {
+    console.log('you are allowed here');
+}
+
+// strict equal
+
+let letter = '5';
+let number = 5;
+
+if (letter == number) {
+    console.log('number and character are equal');
+}
+
+if (letter === number) {
+    console.log('number and character are equal');
+} else {
+    console.log('number and character are not equal');
+}
