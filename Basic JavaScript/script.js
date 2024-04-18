@@ -38,7 +38,6 @@ person[change] = 'Ali Johar';
 console.log(person[change]);
 
 // Array
-
 let colors = ['red', 'green', 'blue'];
 console.log(colors);
 console.log(colors[1]);
@@ -50,7 +49,6 @@ console.log(colors);
 console.log(`length of the array: ${colors.length}`);
 
 // Function
-
 function greet1 () {
     console.log('Hello');
 }
@@ -64,7 +62,6 @@ function greet2 (firstName, lastName) {
 greet2('Abdullah', 'Johar');
 
 // Logical Operators (&&, ||, !)
-
 let temp = 23;
 
 if (temp > 0 && temp <= 30) {
@@ -91,7 +88,6 @@ if (!verrified) {
 }
 
 // strict equal
-
 let letter = '5';
 let number = 5;
 
@@ -219,7 +215,6 @@ const arrowSum = (a, b) => {
     return a + b;
 }
 
-
 // forEach (it takes a function as its parameter)
 let arr = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -245,3 +240,101 @@ let printVal = (val) => {
 }
 
 arr.forEach(printVal);
+
+// Dom Manipulation
+// getElementById
+let myButton = document.getElementById('my-btn');
+console.log(myButton);
+console.dir(myButton);
+
+// getElementsByClassName
+let headings = document.getElementsByClassName('heading-class');
+console.log(headings)
+console.dir(headings)
+
+// getElementsByTagName
+let paras = document.getElementsByTagName('p');
+console.dir(paras);
+
+// example for getElementsByTagName
+let firstElement_P = document.querySelector('p'); // first p tag
+console.dir(firstElement_P);
+
+let allElements = document.querySelectorAll('p'); // all p tags
+console.dir(allElements);
+
+// querySelector: is alternative way of all getElementsBys
+// example for getElementById
+let firstElement_btn = document.querySelector('#my-btn');
+console.dir(firstElement_btn);
+
+// let allElements = document.querySelectorAll('.heading-class');
+// console.dir(allElements); (because id is unique)
+
+// Dome Manipulation Properties
+// TagName
+let firstElement = document.querySelector('#my-btn');
+
+// innerText: prints all the contents
+// innerHTML: prints all the contents including tags
+let divExample = document.querySelector("div");
+console.dir(divExample);
+
+// textContent: returns the hiddens values as well
+let heading = document.querySelector("h1");
+
+// getAttribute gets the attribute value
+let divs = document.querySelector("div");
+console.log(divs);
+
+let ID = divs.getAttribute("id");
+console.log(ID);
+
+let Name =  divs.getAttribute("name");
+console.log(Name);
+
+let para = document.querySelector("p");
+console.log(para.getAttribute("class"));
+
+// setAttribute: sets the attribute value
+let para2 = document.querySelector("p");
+console.log(para2.setAttribute("class", "newClass"));
+
+// node.style
+let divChangeColor = document.querySelector("div");
+divChangeColor.style.backgroundColor = "coral";
+divChangeColor.style.fontSize = "25px";
+divChangeColor.innerText = "Holla";
+
+// Inserting Element
+// button1
+let newBtn1 = document.createElement("button");
+newBtn1.innerText = "button1";
+console.log(newBtn1);
+
+// button2
+let newBtn2 = document.createElement("button");
+newBtn2.innerText = "button2";
+console.log(newBtn2);
+
+// button3
+let newBtn3 = document.createElement("button");
+newBtn3.innerText = "button3";
+console.log(newBtn3);
+
+// button4
+let newBtn4 = document.createElement("button");
+newBtn4.innerText = "button4";
+console.log(newBtn4);
+
+// targeted tag
+let div = document.querySelector("div");
+
+div.prepend(newBtn1); // add before targeted tag
+div.append(newBtn2);  // add afte targeted tag
+div.before(newBtn3); // add before targeted tag
+div.after(newBtn4);  // add afte targeted tag
+
+// Delete Element
+let removeP = document.querySelector('p');
+removeP.remove();
