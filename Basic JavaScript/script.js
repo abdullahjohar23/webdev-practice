@@ -1,45 +1,63 @@
-let h1 = document.querySelector('#name-el');
-let inputElementForBgColor = document.querySelector('input');
-let inputElementForTextColor = document.querySelector('input:nth-child(2)');
-let Form = document.querySelector('form');
+const productsList = [
+    {
+        id: 1,
+        title: "Lemonade - 1ltr",
+        price: 100,
+    },
+    {
+        id: 2,
+        title: "Lemonade - 2ltr",
+        price: 200,
+    },
+    {
+        id: 3,
+        title: "Lemonade - 3ltr",
+        price: 300,
+    },
+];
 
-// Background Color Change Code
-inputElementForBgColor.addEventListener('input', (event) => {
-    inputElementForBgColor.setCustomValidity("");
-    inputElementForBgColor.checkValidity();
+const productsContainer = document.querySelector('#products');
+const cartContainer = document.querySelector('#cart');
 
-    let color = event.target.value;
-    h1.style.backgroundColor = color;
-});
+const cartItems = [];
+function renderCart(productsList) {
+    const productTitle = productsList.title;
+    const el = document.createElement('h3');
+    el.textContent = productTitle;
+    cartContainer.append(el);
+}
 
-// Code for required message of empty input form (backgroundcolor)
-inputElementForBgColor.addEventListener('invalid', () => {
-    if (inputElementForBgColor.value === "") {
-        inputElementForBgColor.setCustomValidity("Enter a background color");
-    } else {
-        inputElementForBgColor.setCustomValidity("Error");
+const cartJson = localStorage.getItem('cart');
+if (cartJson) {
+    const initialItems = JSON.parse(cartJson);
+    // in order to change that into string, we use JSON.stringify()
+    // in order to get the raw data, we use JSON.parse()
+    for (let i = 0; i < initialItems.length; i++) {
+        cartItems.push(initialItems[i]);
+        renderCart(initialItems[i]);
     }
-});
+}
 
-// Background Color Change Code
-inputElementForTextColor.addEventListener('input', (event) => {
-    inputElementForTextColor.setCustomValidity("");
-    inputElementForTextColor.checkValidity();
+productsList.forEach((product) => {
+    const productDiv = document.createElement('div');
 
-    let color = event.target.value;
-    h1.style.color = color;
-});
+    productDiv.innerHTML = `
+        <h1>${product.title}</h1>
+        <p>${product.price}</p>
+    `;
 
-// Code for required message of empty input form (text color)
-inputElementForTextColor.addEventListener("invalid", () => {
-    if (inputElementForTextColor.value === "") {
-        inputElementForTextColor.setCustomValidity("Enter a text color");
-    } else {
-        inputElementForTextColor.setCustomValidity("Error");
-    }
-});
+    const button = document.createElement('button');
+    button.textContent = "Add to Cart";
+    productDiv.appendChild(button);
+    
+    productsContainer.append(productDiv);
 
-Form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    // event.preventDefault(); prevents the default get call
+    button.addEventListener('click', () => {
+        cartItems.push(product);
+        renderCart(product);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        // localStorage.setItem(string, string)
+        // 2nd parameter is an object
+        // in order to change that into string, we use JSON.stringify()
+    });
 });
