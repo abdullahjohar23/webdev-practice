@@ -61,3 +61,29 @@ productsList.forEach((product) => {
         // in order to change that into string, we use JSON.stringify()
     });
 });
+
+// Dark-Light Mode Code
+const colorSchemeToggleBtn = document.querySelector('#color-mode');
+
+function switchColorScheme() {
+    const colorScheme = localStorage.getItem('color-scheme') ?? 'light';
+
+    if (colorScheme == 'light') {
+        localStorage.setItem('color-scheme', 'dark');
+        document.body.classList.add('dark');
+        document.body.classList.remove('light');
+    } else {
+        localStorage.setItem('color-scheme', 'light');
+        document.body.classList.add('light');
+        document.body.classList.remove('dark');
+    }
+}
+
+colorSchemeToggleBtn.addEventListener('click', switchColorScheme);
+
+// this code is for keep the current theme even after refreshing the page
+const colorScheme = localStorage.getItem('color-scheme') ?? 'light';
+if (colorScheme === 'dark') {
+    document.body.classList.add('dark');
+    document.body.classList.remove('light');
+}
