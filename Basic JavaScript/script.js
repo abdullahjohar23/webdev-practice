@@ -1,89 +1,18 @@
-const productsList = [
-    {
-        id: 1,
-        title: "Lemonade - 1ltr",
-        price: 100,
-    },
-    {
-        id: 2,
-        title: "Lemonade - 2ltr",
-        price: 200,
-    },
-    {
-        id: 3,
-        title: "Lemonade - 3ltr",
-        price: 300,
-    },
-];
+const Root = document.querySelector('#root');
 
-const productsContainer = document.querySelector('#products');
-const cartContainer = document.querySelector('#cart');
+fetch('http://universities.hipolabs.com/search?country=Bangladesh')
+    .then((res) => res.json()) // converting to json after fetching
+    .then(data => { // after json conversion we're getting actual response
+        for (let i = 0; i < data.length; i++) {
+            const infoDiv = document.createElement('div');
+            infoDiv.innerHTML = `
+                <h4>${data[i].name}</h4>
+                <a href="${data[i].web_pages[0]}" target="_blank">Website</a>
+            `;
+            Root.append(infoDiv)
+        }
+    })
 
-const cartItems = [];
-function renderCart(productsList) {
-    const productTitle = productsList.title;
-    const el = document.createElement('h3');
-    el.textContent = productTitle;
-    cartContainer.append(el);
-}
-
-const cartJson = localStorage.getItem('cart');
-if (cartJson) {
-    const initialItems = JSON.parse(cartJson);
-    // in order to change that into string, we use JSON.stringify()
-    // in order to get the raw data, we use JSON.parse()
-    for (let i = 0; i < initialItems.length; i++) {
-        cartItems.push(initialItems[i]);
-        renderCart(initialItems[i]);
-    }
-}
-
-productsList.forEach((product) => {
-    const productDiv = document.createElement('div');
-
-    productDiv.innerHTML = `
-        <h1>${product.title}</h1>
-        <p>${product.price}</p>
-    `;
-
-    const button = document.createElement('button');
-    button.textContent = "Add to Cart";
-    productDiv.appendChild(button);
-    
-    productsContainer.append(productDiv);
-
-    button.addEventListener('click', () => {
-        cartItems.push(product);
-        renderCart(product);
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-        // localStorage.setItem(string, string)
-        // 2nd parameter is an object
-        // in order to change that into string, we use JSON.stringify()
+    .catch(() => {
+        console.log('failed'); // if .then fails, .catch will return
     });
-});
-
-// Dark-Light Mode Code
-const colorSchemeToggleBtn = document.querySelector('#color-mode');
-
-function switchColorScheme() {
-    const colorScheme = localStorage.getItem('color-scheme') ?? 'light';
-
-    if (colorScheme == 'light') {
-        localStorage.setItem('color-scheme', 'dark');
-        document.body.classList.add('dark');
-        document.body.classList.remove('light');
-    } else {
-        localStorage.setItem('color-scheme', 'light');
-        document.body.classList.add('light');
-        document.body.classList.remove('dark');
-    }
-}
-
-colorSchemeToggleBtn.addEventListener('click', switchColorScheme);
-
-// this code is for keep the current theme even after refreshing the page
-const colorScheme = localStorage.getItem('color-scheme') ?? 'light';
-if (colorScheme === 'dark') {
-    document.body.classList.add('dark');
-    document.body.classList.remove('light');
-}
